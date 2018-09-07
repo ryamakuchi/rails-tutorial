@@ -131,12 +131,16 @@ Ruby on Rails チュートリアル
 ```
 # app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
-ApplicationRecordがActiveRecord::Baseを継承しているコードはどこにあるでしょうか? 先ほどの演習を参考に、探してみてください。ヒント: コントローラと本質的には同じ仕組みなので、app/modelsディレクトリ内にあるファイルを調べてみると...?)
+```
+
+2. ApplicationRecordがActiveRecord::Baseを継承しているコードはどこにあるでしょうか? 先ほどの演習を参考に、探してみてください。ヒント: コントローラと本質的には同じ仕組みなので、app/modelsディレクトリ内にあるファイルを調べてみると...?)
+```
 # app/models/application_record.rb
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 end
 ```
+
 
 ## 2.3.5 アプリケーションをデプロイする
 
