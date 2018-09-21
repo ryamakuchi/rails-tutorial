@@ -47,10 +47,10 @@ Ruby on Rails チュートリアル
 
 ## 2.2.1 ユーザーページを探検する
 
-1. CSSを知っている読者へ: 新しいユーザーを作成し、ブラウザのHTMLインスペクター機能を使って「User was successfully created.」の箇所を調べてみてください。ブラウザをリロードすると、その箇所はどうなるでしょうか?
+1. CSSを知っている読者へ: 新しいユーザーを作成し、ブラウ���のHTMLインスペクター機能を使って「User was successfully created.」の箇所を調べてみてください。ブラウザをリロードすると、その箇所はどうなるでしょうか?
 * 要素の中の文字だけ消える(Rubyの変数が出力されている?)
 
-2. emailを入力せず、名前だけを入力しようとした場合、どうなるでしょうか?「@example.com」のような間違ったメールアドレスを入力して更新しようとした場合、どうなるでしょうか?
+2. emailを���力せず、名前だけを入力しようとした場合、どうなるでしょうか?「@example.com」のような間違ったメールアドレスを入力して更新しようとした場合、どうなるでしょうか?
 * 更新されてしまう
 
 3. 上記の演習で作成したユーザーを削除してみてください。ユーザーを削除したとき、Railsはどんなメッセージを表示するでしょうか?
@@ -201,3 +201,374 @@ end
 * OK, なった!!!
 ![LGTM](./images/BpVjA7wCMAAfmum.png)
 
+
+## 4.2.2 文字列
+1. city変数に適当な市区町村を、prefecture変数に適当な都道府県を代入してください。
+```
+?> city = "江東区"
+=> "江東区"
+>> prefecture = "東京"
+=> "東京
+```
+
+2. 先ほど作った変数と式展開を使って、「東京都 新宿区」のような住所の文字列を作ってみましょう。出力にはputsを使ってください。
+```
+?> "#{prefecture} #{city}"                                                                                                     
+=> "東京 江東区"
+```
+
+3. 上記の文字列の間にある半角スペースをタブに置き換えてみてください。(ヒント: 改行文字と同じで、タブも特殊文字です)
+```
+>> print "#{prefecture}\t#{city}"
+東京    江東区=> nil
+```
+
+4. タブに置き換えた文字列を、ダブルクォートからシングルクォートに置き換えてみるとどうなるでしょうか?
+```
+?> print '#{prefecture}\t#{city}'
+#{prefecture}\t#{city}=> nil
+```
+
+
+## 4.2.3 オブジェクトとメッセージ受け渡し
+1. "racecar" の文字列の長さはいくつですか? lengthメソッドを使って調べてみてください。
+```
+>> "racecar".length
+=> 7
+```
+
+2. reverseメソッドを使って、"racecar"の文字列を逆から読むとどうなるか調べてみてください。
+```
+>> "racecar".reverse
+=> "racecar"
+```
+
+3. 変数sに "racecar" を代入してください。その後、比較演算子 (==) を使って変数sとs.reverseの値が同じであるかどうか、調べてみてください。
+```
+>> puts "true" if s == s.reverse
+true
+=> nil
+```
+
+4. リスト 4.9を実行すると、どんな結果になるでしょうか? 変数sに "onomatopoeia" という文字列を代入するとどうなるでしょうか?
+ヒント: 上矢印 (またはCtrl-Pコマンド) を使って以前に使ったコマンドを再利用すると一からコマンドを全部打ち込む必要がなくて便利ですよ。)
+```
+>> s = "onomatopoeia"
+=> "onomatopoeia"
+>> puts "It's a palindrome!" if s == s.reverse
+=> nil
+```
+
+
+## 4.2.4 メソッドの定義
+1. リスト 4.10のFILL_INの部分を適切なコードに置き換え、回文かどうかをチェックするメソッドを定義してみてください。
+ヒント: リスト 4.9の比較方法を参考にしてください。
+```
+def palindrome_tester(s)
+   if s == s.reverse
+     puts "It's a palindrome!"
+   else
+     puts "It's not a palindrome."
+   end
+end
+```
+
+2. 上で定義したメソッドを使って “racecar” と “onomatopoeia” が回文かどうかを確かめてみてください。１つ目は回文である、２つ目は回文でない、という結果になれば成功です。
+```
+>> puts palindrome_tester("racecar")
+It's a palindrome!
+
+>> puts palindrome_tester("onomatopoeia")
+It's not a palindrome.
+```
+
+3. palindrome_tester("racecar")に対してnil?メソッドを呼び出し、戻り値がnilであるかどうかを確認してみてください (つまりnil?を呼び出した結果がtrueであることを確認してください)。
+このメソッドチェーンは、nil?メソッドがリスト 4.10の戻り値を受け取り、その結果を返しているという意味になります。
+```
+?> palindrome_tester("racecar").nil?
+It's a palindrome!
+=> true
+```
+
+
+## 4.3.1 配列と範囲演算子
+1. 文字列 “A man, a plan, a canal, Panama” を ", " で分割して配列にし、変数aに代入してみてください。
+```
+>> a = "A man, a plan, a canal, Panama".split(',')
+=> ["A man", " a plan", " a canal", " Panama"]
+```
+
+2. 今度は、変数aの要素を連結した結果 (文字列) を、変数sに代入してみてください。
+```
+>> s = a.join
+=> "A man a plan a canal Panama"
+```
+
+3. 変数sを半角スペースで分割した後、もう一度連結して文字列にして��ださい
+(ヒント: メソッドチェーンを使うと１行でもできます)。
+リスト 4.10で使った回文をチェックするメソッドを使って、
+(現状ではまだ) 変数sが回文ではないことを確認してください。
+downcaseメソッドを使って、s.downcaseは回文であることを確認してください。
+```
+?> s.split(',').join
+=> "A man a plan a canal Panama"
+
+?> palindrome_tester(s.split(',').join)
+It's not a palindrome.
+=> nil
+```
+
+4. aからzまでの範囲オブジェクトを作成し、7番目の要素を取り出してみてください。
+同様にして、後ろから７番目の要素を取り出してみてください。
+(ヒント: 範囲オブジェクトを配列に変換するのを忘れないでください)
+```
+>> ('a'..'z').to_a[6]
+=> "g"
+
+>> ('a'..'z').to_a[-7]
+=> "t"
+```
+
+
+## 4.3.2 ブロック
+1. 範囲オブジェクト0..16を使って、各要素の２乗を出力してください。
+```
+>> (1..16).map { |i| i**2 }                                                                                                    
+=> [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256]
+```
+
+2. yeller (大声で叫ぶ) というメソッドを定義してください。
+このメソッドは、文字列の要素で構成された配列を受け取り、各要素を連結した後、大文字にして結果を返します。
+例えばyeller([’o’, ’l’, ’d’])と実行したとき、"OLD"という結果が返ってくれば成功です。
+ヒント: mapとupcaseとjoinメソッドを使ってみましょう。
+```
+def yeller(l = '')
+  l.map(&:upcase).join
+end
+
+?> yeller(["o", "l", "d"])
+=> "OLD"
+```
+
+3. random_subdomainというメソッドを定義してください。
+このメソッドはランダムな8文字を生成し、文字列として返します。
+ヒント: サブドメインを作るときに使ったRubyコードをメソッド化したものです。
+```
+>> def random_subdomain
+>>   ('a'..'z').to_a.shuffle[0..7].join
+>> end
+=> :random_subdomain
+>> 
+?> random_subdomain
+=> "lzndeosp"
+>> random_subdomain
+=> "vgxtjahf"
+>> random_subdomain
+=> "vohygitx"
+```
+
+4. リスト 4.12の「?」の部分を、それぞれ適切なメソッドに置き換えてみてください。
+ヒント:split、shuffle、joinメソッドを組み合わせると、
+メソッドに渡された文字列 (引数) をシャッフルさせることができます。
+```
+?> def string_shuffle(s)
+>>  s.split('').shuffle.join
+>> end
+=> :string_shuffle
+?> string_shuffle("foobar")
+=> "orofab"
+```
+
+## 4.3.3 ハッシュとシンボル
+1. キーが’one’、’two’、’three’となっていて、それぞれの値が’uno’、’dos��、’tres’となっているハッシュを作ってみてください。
+その後、ハッシュの各要素をみて、それぞれのキーと値を"’#{key}’のスペイン語は’#{value}’"といった形で出力してみてください。
+```
+>> num = {}
+>> num = { one: "uno", two: "dos", three: "tres" }
+>> num.each do |key,value|
+?> puts "’#{key}’のスペイン語は’#{value}’"
+>> end
+
+’one’のスペイン語は’uno’
+’two’のスペイン語は’dos’
+’three’のスペイン語は’tres’
+=> {:one=>"uno", :two=>"dos", :three=>"tres"}
+```
+
+2. person1、person2、person3という３つのハッシュを作成し、それぞれのハッシュに:firstと:lastキーを追加し、
+適当な値 (名前など) を入力してください。その後、次のようなparamsというハッシュのハッシュを作ってみてください。
+1). キーparams[:father]の値にperson1を代入、
+2). キーparams[:mother]の値にperson2を代入、
+3). キーparams[:child]の値にperson3を代入。
+最後に、ハッシュのハッシュを調べていき、正しい値になっているか確かめてみてください。
+(例えばparams[:father][:first]がperson1[:first]と一致しているか確かめてみてください)
+```
+?> person1 = { first: "masu", last: "suzuki" }                                                                                 
+=> {:first=>"masu", :last=>"suzuki"}
+>> person2 = { first: "rio", last: "yamakuchi" }                                                                               
+=> {:first=>"rio", :last=>"yamakuchi"}
+
+>> params[:father] = person1                                                                                                   
+=> {:first=>"masu", :last=>"suzuki"}
+>> params[:mother] = person2
+=> {:first=>"rio", :last=>"yamakuchi"}
+
+?> params[:father][:first]
+=> "masu"
+
+>> params
+=> {:father=>{:first=>"masu", :last=>"suzuki"}, :mother=>{:first=>"rio", :last=>"yamakuchi"}}
+```
+
+3. userというハッシュを定義してみてください。このハッシュは３つのキー:name、:email、:password_digestを持っていて、
+それぞれの値にあなたの名前、あなたのメールアドレス、そして16文字からなるランダムな文字列が代入されています。
+```
+?> user = { name: "ryamakuchi", email: "r.yamakuchi@gmail.com", password_digest: ('a'..'z').to_a.shuffle[0..15].join }         
+=> {:name=>"ryamakuchi", :email=>"r.yamakuchi@gmail.com", :password_digest=>"orkjlfmzhstbgqea"}
+```
+
+4. Ruby API (訳注: もしくはるりまサーチ) を使って、Hashクラスのmergeメソッドについて調べてみてください。
+次のコードを実行せずに、どのような結果が返ってくるか推測できますか? 
+推測できたら、実際にコードを実行して推測があっていたか確認してみましょう。
+`{ "a" => 100, "b" => 200 }.merge({ "b" => 300 })`
+> selfとotherのハッシュの内容をマージ(統合)した結果を返します。デフォルト値はselfの設定のままです。
+> https://docs.ruby-lang.org/ja/search/query:.merge/
+{ "a" => 100, "b" => 300 }
+>> hash = { "a" => 100, "b" => 200 }.merge({ "b" => 300 })
+=> {"a"=>100, "b"=>300}
+
+## 4.4.1 コンストラクタ
+1. 1から10の範囲オブジェクトを生成するリテラルコンストラクタは何でしたか? (復習です)
+a = (1..10)
+
+2. 今度はRangeクラスとnewメソッドを使って、1から10の範囲オブジェクトを作ってみてください。ヒント: newメソッドに2つの引数を渡す必要があります
+b = Range.new(1, 10)
+
+3. 比較演算子==を使って、上記２つの課題で作ったそれぞれのオブジェクトが同じであることを確認してみてください。
+```
+>> a = (1..10)
+=> 1..10
+>> b = Range.new(1, 10)
+=> 1..10
+>> a == b
+=> true
+```
+
+## 4.4.2 クラス継承
+1. Rangeクラスの継承階層を調べてみてください。同様にして、HashとSymbolクラスの継承階層も調べてみてください。
+Range > Class > Module > Oblect > BasicObject
+Hash > Integer > Numeric > Oblect > BasicObject
+Symbol > Class > Module > Oblect > BasicObject
+
+2. リスト 4.15にあるself.reverseのselfを省略し、reverseと書いてもうまく動くことを確認してみてください。
+```
+?> class Word < String
+>> def palindrome?
+>> self == reverse
+>> end
+>> end
+=> :palindrome?
+>> s = Word.new("level")
+=> "level"
+>> s.palindrome?  
+=> true
+```
+
+
+## 4.4.3 組み込みクラスの変更
+1. palindrome?メソッドを使って、“racecar”が回文であり、“onomatopoeia”が回文でないことを確認してみてください。
+2. 南インドの言葉「Malayalam」は回文でしょうか? ヒント: downcaseメソッドで小文字にすることを忘れないで。
+```
+?> s = Word.new("racecar")
+=> "racecar"
+>> s.palindrome?
+=> true
+>> s = Word.new("onomatopoeia")
+=> "onomatopoeia"
+>> s.palindrome?
+=> false
+>> m = "Malayalam".downcase                                                                                                    
+=> "malayalam"
+>> s = Word.new(m)
+=> "malayalam"
+>> s.palindrome?
+=> true
+```
+
+2. リスト 4.16を参考に、Stringクラスにshuffleメソッドを追加してみてください。ヒント: リスト 4.12も参考になります。
+```
+?> class String
+>> def shuffle
+>> self.split('').shuffle.join
+>> end
+>> end
+=> :shuffle
+>> "foobar".shuffle
+=> "robfao"
+```
+
+3. リスト 4.16のコードにおいて、self.を削除してもうまく動くことを確認してください。
+```
+>> class String
+>> def shuffle
+>> split('').shuffle.join
+>> end
+>> end
+=> :shuffle
+>> "foobar".shuffle
+=> "rfooba"
+```
+
+
+## 4.4.4 コントローラクラス
+1. 第2章で作ったToyアプリケーションのディレクトリでRailsコンソールを開き、
+User.newと実行することでuserオブジェクトが生成できることを確認してみましょう。
+```
+>> u = User.new
+=> #<User id: nil, name: nil, email: nil, created_at: nil, updated_at: nil>
+```
+
+2. 生成したuserオブジェクトのクラスの継承階層を調べてみてください。
+User > ApplicationRecord(abstract) > ActiveRecord::Base > Object > BasicObject
+
+
+## 4.4.5 ユーザークラス
+1. Userクラスで定義されているname属性を修正して、first_name属性とlast_name属性に分割してみましょう。
+また、それらの属性を使って "Michael Hartl" といった文字列を返すfull_nameメソッドを定義してみてください。
+最後に、formatted_emailメソッドのnameの部分を、full_nameに置き換えてみましょう (元々の結果と同じになっていれば成功です)
+```
+>> require './example_user'
+=> true
+>> user = User.new(first_name: "Michael", last_name: "Hartl", email: "mhartl@example.com")
+=> #<User:0x00000003e60610 @first_name="Michael", @last_name="Hartl", @email="mhartl@example.com">
+>> user.full_name
+=> "Michael Hartl"
+>> user.formatted_email
+=> "Michael Hartl <mhartl@example.com>"
+```
+
+2. "Hartl, Michael" といったフォーマット (苗字と名前がカンマ+半角スペースで区切られている文字列) 
+で返すalphabetical_nameメソッドを定義してみましょう。
+```
+>> user = User.new(first_name: "Michael", last_name: "Hartl", email: "mhartl@example.com")
+=> #<User:0x00000004b18150 @first_name="Michael", @last_name="Hartl", @email="mhartl@example.com">
+>> user.alphabetical_name
+=> "Michael, Hartl"
+>> user.formatted_email_al
+=> "Michael, Hartl <mhartl@example.com>"
+```
+
+3. full_name.splitとalphabetical_name.split(’, ’).reverseの結果を比較し、同じ結果になるかどうか確認してみましょう。
+```
+>> user.full_name.split
+=> ["MichaelHartl"]
+>> user.alphabetical_name.split(', ').reverse
+=> ["Hartl", "Michael"]
+>> user.formatted_email_full
+=> "MichaelHartl <mhartl@example.com>"
+>> user.formatted_email_al
+=> "Michael, Hartl <mhartl@example.com>"
+```
+
+
+## 5章
