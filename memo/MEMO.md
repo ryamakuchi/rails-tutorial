@@ -154,7 +154,7 @@ end
 ![OK](./images/18913B9EDB55A9966BF2729B5143033B.png)
 
 
-## 3.1 セット�����ップ
+## 3.1 セット�������ップ
 
 1. BitbucketがMarkdown記法のREADME (リスト 3.3) をHTMLとして正しく描画しているか、確認してみてください。
 * Githubで確認した
@@ -214,7 +214,7 @@ end
 2. 先ほど作った変数と式展開を使って、「東京都 新宿区」のような住所の文字列を作ってみましょう。出力にはputsを使ってください。
 ```
 ?> "#{prefecture} #{city}"                                                                                                     
-=> "東京 江東区"
+=> "東�� 江東区"
 ```
 
 3. 上記の文字列の間にある半角スペースをタブに置き換えてみてください。(ヒント: 改行文字と同じで、タブも特殊文字です)
@@ -421,7 +421,7 @@ end
 ```
 
 3. userというハッシュを定義してみてください。このハッシュは３つのキー:name、:email、:password_digestを持っていて、
-それぞれの値にあなたの名前、あなたのメールアドレス、そして16文字からなるランダムな文字列が代入されています。
+それぞれの値にあなたの名前、あなたの���ールアドレス、そして16文字からなるランダムな文字列が代入されています。
 ```
 ?> user = { name: "ryamakuchi", email: "r.yamakuchi@gmail.com", password_digest: ('a'..'z').to_a.shuffle[0..15].join }         
 => {:name=>"ryamakuchi", :email=>"r.yamakuchi@gmail.com", :password_digest=>"orkjlfmzhstbgqea"}
@@ -441,7 +441,7 @@ end
 1. 1から10の範囲オブジェクトを生成するリテラルコンストラクタは何でしたか? (復習です)
 a = (1..10)
 
-2. 今度はRangeクラスとnewメソッドを使って、1から10の範囲オブジェクトを作ってみてください。ヒント: newメソッドに2つの引数を渡す必要があります
+2. 今度はRangeクラスとnewメソッドを使って、1から10の範囲オブジェクトを作ってみてください。ヒント: newメソッドに2つの引数��渡す必要があります
 b = Range.new(1, 10)
 
 3. 比較演算子==を使って、上記２つの課題で作ったそれぞれのオブジェクトが同じであることを確認してみてください。
@@ -588,7 +588,7 @@ User > ApplicationRecord(abstract) > ActiveRecord::Base > Object > BasicObject
 また、ブラウザのHTMLインスペクタ機能を使って、コメントアウトするとHTMLのソースからも消えていることを確認してみてください。
 おk
 
-2. リスト 5.11のコードをcustom.scssに追加し、すべての画像を非表示にしてみてください。
+2. リスト 5.11のコードをcustom.scssに追加し、すべて��画像を非表示にしてみてください。
 うまくいけば、Railsのロゴ画像がHomeページから消えるはずです。
 先ほどと同様にインスペクタ機能を使って、今度はHTMLのソースコードは残ったままで、
 画像だけが表示されなくなっていることを確認してみてください。
@@ -711,3 +711,171 @@ GREENなた
     assert_response :success
   end
 ```
+
+
+## 6.1.1 データベースの移行
+1. Railsはdb/ディレクトリの中にあるschema.rbというファイルを使っています。
+これはデータベースの構造 (スキーマ (schema) と呼びます) を追跡するために使われます。
+さて、あなたの環境にあるdb/schema.rbの内容を調べ、
+その内容とマイグレーションファイル (リスト 6.2) の内容を比べてみてください。
+```
+# 20181013064540_create_users.rb
+
+class CreateUsers < ActiveRecord::Migration[5.1]
+  def change
+    create_table :users do |t|
+      t.string :name
+      t.string :email
+
+      t.timestamps
+    end
+  end
+end
+```
+```
+# schema.rb
+
+ActiveRecord::Schema.define(version: 20181013064540) do
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+end
+```
+create_users で指定した��容がschema.rb に登録されている
+
+
+2. ほぼすべてのマイグレーションは、元に戻すことが可能です
+ (少なくとも本チュートリアルにおいてはすべてのマイグレーションを元に戻すことができます)。
+元に戻すことを「ロールバック (rollback)と呼び、Railsではdb:rollbackというコマンドで実現できます。
+`$ rails db:rollback` 上のコマンドを実行後、db/schema.rbの内容を調べてみて、
+ロールバックが成功したかどうか確認してみてください 
+```
+ActiveRecord::Schema.define(version: 0) do
+end
+```
+こうなって消えていた
+
+(コラム 3.1ではマイグレーションに関する他のテクニックもまとめているので、参考にしてみてください)。
+上のコマンドでは、データベースからusersテーブルを削除するためにdrop_tableコマンドを内部で呼び出しています。
+これがうまくいくのは、drop_tableとcreate_tableがそれぞれ対応していることをchangeメソッドが知っているからです。
+この対応関係を知っているため、ロールバック用の逆方向のマイグレーションを簡単に実現することができるのです。
+なお、あるカラムを削除するような不可逆なマイグレーションの場合は、changeメソッドの代わりに、
+upとdownのメソッド���別々に定義する必要があります。
+詳細については、Railsガイドの「Active Record マイグレーション」を参照してください。
+
+
+3. もう一度rails db:migrateコマンドを実行し、db/schema.rbの内容が元に戻ったことを確認してください。
+もとに戻った
+
+
+## 6.1.2 modelファイル
+1. Railsコンソールを開き、User.newでUserクラスのオブジェクトが生成されること、
+そしてそのオブジェクトがApplicationRecordを継承していることを確認してみてください
+(ヒント: 4.4.4で紹介したテクニックを使ってみてください)。
+```
+?> model = User.new                                                                                                     
+=> #<User id: nil, name: nil, email: nil, created_at: nil, updated_at: nil>
+>> model.class.superclass
+=> ApplicationRecord(abstract)
+```
+
+2. 同様にして、ApplicationRecordがActiveRecord::Baseを継承していることについて確認してみてください。
+```
+>> model.class.superclass.superclass
+=> ActiveRecord::Base
+```
+
+
+## 6.1.3 ユーザーオブジェクトを作成する
+1. user.nameとuser.emailが、どちらもStringクラスのインスタンスであることを確認してみてください。
+```
+?> user.name.class
+=> String
+>> user.email.class
+=> String
+```
+
+2. created_atとupdated_atは、どのク��スのインスタンスでしょうか?
+```
+>> user.created_at.class
+=> ActiveSupport::TimeWithZone
+>> user.updated_at.class
+=> ActiveSupport::TimeWithZone
+```
+
+
+## 6.1.4 ユーザーオブジェクトを検索する
+1. nameを使ってユーザーオブジェクトを検索してみてください。
+また、 find_by_nameメソッドが使えることも確認してみてください 
+(古いRailsアプリケーションでは、古いタイプのfind_byをよく見かけることでしょう)。
+```
+?> User.find_by(name: "Michael Hartl")                                                                                   
+  User Load (0.2ms)  SELECT  "users".* FROM "users" WHERE "users"."name" = ? LIMIT ?  [["name", "Michael Hartl"], ["LIMIT", 1]]
+=> #<User id: 1, name: "Michael Hartl", email: "mhartl@example.com", created_at: "2018-10-13 13:13:48", updated_at: "2018-10-13 13:13:48">
+>> User.find_by_name("Michael Hartl")                                                                                    
+  User Load (0.2ms)  SELECT  "users".* FROM "users" WHERE "users"."name" = ? LIMIT ?  [["name", "Michael Hartl"], ["LIMIT", 1]]
+=> #<User id: 1, name: "Michael Hartl", email: "mhartl@example.com", created_at: "2018-10-13 13:13:48", updated_at: "2018-10-13 13:13:48">
+```
+
+2. 実用的な目的のため、User.allはまるで配列のように扱うことができますが、実際には配列ではありません。
+User.allで生成されるオブジェクトを調べ、Arrayクラスではなく
+User::ActiveRecord_Relationクラスであることを確認してみてください。
+```
+?> all = User.all
+  User Load (0.1ms)  SELECT  "users".* FROM "users" LIMIT ?  [["LIMIT", 11]]
+=> #<ActiveRecord::Relation [#<User id: 1, name: "Michael Hartl", email: "mhartl@example.com", created_at: "2018-10-13 13:13:48", updated_at: "2018-10-13 13:13:48">]>
+>> all.class
+=> User::ActiveRecord_Relation
+```
+
+3. User.allに対してlengthメソッドを呼び出すと、その長さを求められることを確認してみてください (4.2.3)。
+Rubyの性質として、そのクラスを詳しく知らなくてもなんとなくオブジェクトをどう扱えば良いかわかる、
+という性質があります。これをダックタイピング (duck typing) と呼び、よく次のような格言で言い表されています
+「もしアヒルのような容姿で、アヒルのように鳴くのであれば、それはもうアヒルだろう」。
+(訳注: そういえばRubyKaigi 2016の基調講演で、Ruby作者のMatzがダックタイピングについて説明していました。
+２〜３分の短くて分かりやすい説明なので、ぜひ視聴してみてください!)
+```
+?> all.length
+  User Load (0.2ms)  SELECT "users".* FROM "users"
+=> 1
+```
+
+
+## 6.1.5 ユーザーオブジェクトを更新する
+1. userオブジェクトへの代入を使ってname属性を使って更新し、saveで保存してみてください。
+```
+?> user.name = "rio"
+=> "rio"
+>> user.save
+   (0.2ms)  SAVEPOINT active_record_1
+  SQL (0.2ms)  UPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?  [["name", "rio"], ["updated_at", "2018-10-13 13:53:23.481524"], ["id", 1]]
+   (0.1ms)  RELEASE SAVEPOINT active_record_1
+=> true
+```
+
+2. 今度はupdate_attributesを使って、email属性を更新および保存してみてください。
+```
+>>  user.update_attribute(:email, "r.yamakuchi@gmail.com")                                                   
+   (0.1ms)  SAVEPOINT active_record_1
+  SQL (0.2ms)  UPDATE "users" SET "email" = ?, "updated_at" = ? WHERE "users"."id" = ?  [["email", "r.yamakuchi@gmail.com"], ["updated_at", "2018-10-13 13:56:10.468942"], ["id", 1]]
+   (0.1ms)  RELEASE SAVEPOINT active_record_1
+=> true
+```
+
+3. 同様にして、マジックカラムであるcreated_atも直接更新できることを確認してみてください。
+ヒント: 更新するときは「1.year.ago」を使うと便利です。
+これはRails流の時間指定の１つで、現在の時刻から１年前の時間を算出してくれます。
+```
+>>  user.update_attribute(:created_at, 1.year.ago)                                             
+   (0.1ms)  SAVEPOINT active_record_1
+  SQL (0.1ms)  UPDATE "users" SET "created_at" = ?, "updated_at" = ? WHERE "users"."id" = ?  [["created_at", "2017-10-13 13:57:19.318555"], ["updated_at", "2018-10-13 13:57:19.319316"], ["id", 1]]
+   (0.1ms)  RELEASE SAVEPOINT active_record_1
+=> true
+```
+
+
