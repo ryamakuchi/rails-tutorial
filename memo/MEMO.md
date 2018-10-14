@@ -154,7 +154,7 @@ end
 ![OK](./images/18913B9EDB55A9966BF2729B5143033B.png)
 
 
-## 3.1 セット�������ップ
+## 3.1 セットアップ
 
 1. BitbucketがMarkdown記法のREADME (リスト 3.3) をHTMLとして正しく描画しているか、確認してみてください。
 * Githubで確認した
@@ -214,7 +214,7 @@ end
 2. 先ほど作った変数と式展開を使って、「東京都 新宿区」のような住所の文字列を作ってみましょう。出力にはputsを使ってください。
 ```
 ?> "#{prefecture} #{city}"                                                                                                     
-=> "東�� 江東区"
+=> "東京都 江東区"
 ```
 
 3. 上記の文字列の間にある半角スペースをタブに置き換えてみてください。(ヒント: 改行文字と同じで、タブも特殊文字です)
@@ -251,7 +251,7 @@ true
 ```
 
 4. リスト 4.9を実行すると、どんな結果になるでしょうか? 変数sに "onomatopoeia" という文字列を代入するとどうなるでしょうか?
-ヒント: 上矢印 (またはCtrl-P��マ��ド) を使って以前に使ったコマンドを再利用すると一からコマンドを全部打ち込む必要がなくて便利ですよ。)
+ヒント: 上矢印 (またはCtrl-P���マ��ド) を使って以前に使ったコマンドを再利用すると一からコマンドを全部打ち込む必要がなくて便利ですよ。)
 ```
 >> s = "onomatopoeia"
 => "onomatopoeia"
@@ -572,7 +572,7 @@ User > ApplicationRecord(abstract) > ActiveRecord::Base > Object > BasicObject
 
 
 ## 5.1.1 ナビゲーション
-1. Webページと言ったらネコ画像、というぐらいにはWebにはネコ画像が溢れていますよね。
+1. Webページと言ったらネコ画像、というぐらいにはWebにはネコ画像が溢れて���ますよね。
 リスト 5.4���コマンドを使って、図 5.3のネコ画像をダウンロードしてきましょう8。
 `にゃーん`
 
@@ -618,7 +618,7 @@ ok
 有名なFar Sideの漫画に倣って、Helpページの名前付きルートをhelfに変更してみてください (リスト 5.29)。
 ok
 
-2. 先ほどの変更により、テストが redになっていることを確認してください��
+2. 先ほどの変更により、テストが redになっていることを確��してください��
 リスト 5.28を���考にルーティングを更新して、テストを greenにして見てください。
 ok
 
@@ -784,7 +784,7 @@ upとdownのメソッド���別々に定義する必要があります。
 => ApplicationRecord(abstract)
 ```
 
-2. 同様にして、ApplicationRecordがActiveRecord::Baseを継承していることについて確認してみてください。
+2. 同様���して、ApplicationRecordがActiveRecord::Baseを継承していることについて確認してみてください。
 ```
 >> model.class.superclass.superclass
 => ActiveRecord::Base
@@ -879,3 +879,108 @@ Rubyの性質として、そのクラスを詳しく知らなくてもなんと�
 ```
 
 
+## 6.2.1 有効性を検証する
+1. コンソールから、新しく生成したuserオブジェクトが有効 (valid) であることを確認してみましょう。
+```
+>> user = User.new
+=> #<User id: nil, name: nil, email: nil, created_at: nil, updated_at: nil>
+>> user.valid?
+=> true
+```
+
+2. 6.1.3で生成したuserオブジェクトも有効であるかどうか、確認してみましょう。
+```
+?> User.new
+=> #<User id: nil, name: nil, email: nil, created_at: nil, updated_at: nil>
+```
+
+
+## 6.2.2 存在性を検証する
+1. 新しいユーザーuを作成し、作成した時点では有効ではない (invalid) ことを確認してください。
+なぜ有効ではないのでしょうか? エラーメッセージを確認してみましょう。
+```
+>> u = User.new
+=> #<User id: nil, name: nil, email: nil, created_at: nil, updated_at: nil>
+>> u.save
+   (0.1ms)  SAVEPOINT active_record_1
+   (0.1ms)  ROLLBACK TO SAVEPOINT active_record_1
+=> false
+>> u.errors.full_messages
+=> ["Name can't be blank", "Email can't be blank"]
+
+```
+
+2. u.errors.messagesを実行すると、ハッシュ形式でエラーが取得できることを確認してください。
+emailに関するエラー情報だけを取得したい場合、どうやって取得すれば良いでしょうか?
+```
+>> u.errors.messages[:email]
+=> ["can't be blank"]
+```
+
+
+## 6.2.3 長さを検証する
+1. 長すぎるnameとemail属性を持ったuserオブジェクトを生成し、有効でないことを確認してみましょう
+```
+>> user = User.new(name: "a" * 51, email: "a" * 244 + "@example.com")
+=> #<User id: nil, name: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...", email: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...", created_at: nil, updated_at: nil>
+>> user.save
+   (0.1ms)  SAVEPOINT active_record_1
+   (0.1ms)  ROLLBACK TO SAVEPOINT active_record_1
+=> false
+```
+
+2. 長さに関するバリデーションが失敗した時、どんなエラーメッセージが生成されるでしょうか? 確認してみてください。
+```
+>>  user.errors.full_messages
+=> ["Name is too long (maximum is 50 characters)", "Email is too long (maximum is 255 characters)"]
+```
+
+
+## 6.2.4 フォーマットを検証する
+1. リスト 6.18にある有効なメールアドレスのリストと、
+```
+user@example.com
+USER@foo.COM
+A_US-ER@foo.bar.org
+first.last@foo.jp
+alice+bob@baz.cn
+```
+リスト 6.19にある無効なメールアドレスのリスト
+```
+user@example,com
+user_at_foo.org
+user.name@example.
+foo@bar_baz.com
+foo@bar+baz.com
+```
+をRubularのYour test string:に転記してみてください。
+その後、リスト 6.21の正規表現をYour regular expression:に転記して、
+有効なメールアドレスのみがすべてマッチし、無効なメールアドレスはすべてマッチしないことを確認してみましょう。
+OK
+
+2. 先ほど触れたように、リスト 6.21のメールアドレスチェックする正規表現は、
+foo@bar..comのようにドットが連続した無効なメールアドレスを許容してしまいます。
+まずは、このメールアドレスをリスト 6.19の無効なメールアドレスリストに追加し、
+これによってテストが失敗することを確認してください。
+次に、リスト 6.23で示した、少し複雑な正規表現を使ってこのテストがパスすることを確認してください。
+OK
+
+3. foo@bar..comをRubularのメールアドレスのリストに追加し、リスト 6.23の正規表現をRubularで使ってみてください。
+有効なメールアドレスのみがすべてマッチし、無効なメールアドレスはすべてマッチしないことを確認してみましょう。
+OK
+
+
+## 6.2.5 一意性を検証する
+1. リスト 6.33を参考に、メールアドレスを小文字にするテストをリスト 6.32に追加してみましょう。
+ちなみに追加するテストコードでは、データベースの値に合わせて更新するreloadメソッドと、
+値が一致しているかどうか確認するassert_equalメソッドを使っています。
+リスト 6.33のテストがうまく動いているか確認するためにも、
+before_saveの行をコメントアウトして redになることを、
+また、コメントアウトを解除すると greenになることを確認してみましょう。
+OK
+
+2. テストスイートの実行結果を確認しながら、before_saveコールバックをemail.downcase!に書き換えてみましょう。
+ヒント: メソッドの末尾に!を付け足すことにより、email属性を直接変更できるようになります (リスト 6.34)。
+
+
+## 6.3 セキュアなパスワードを追加する
