@@ -765,7 +765,7 @@ end
 これがうまくいくのは、drop_tableとcreate_tableがそれぞれ対応していることをchangeメソッドが知っているからです。
 この対応関係を知っているため、ロールバック用の逆方向のマイグレーションを簡単に実現することができるのです。
 なお、あるカラムを削除するような不可逆なマイグレーションの場合は、changeメソッドの代わりに、
-upとdownのメソッド���別々に定義する必要があります。
+upとdownのメソッドを別々に定義する必要があります。
 詳細については、Railsガイドの「Active Record マイグレーション」を参照してください。
 
 
@@ -784,7 +784,7 @@ upとdownのメソッド���別々に定義する必要があります。
 => ApplicationRecord(abstract)
 ```
 
-2. 同様���して、ApplicationRecordがActiveRecord::Baseを継承していることについて確認してみてください。
+2. 同様にして、ApplicationRecordがActiveRecord::Baseを継承していることについて確認してみてください。
 ```
 >> model.class.superclass.superclass
 => ActiveRecord::Base
@@ -800,7 +800,7 @@ upとdownのメソッド���別々に定義する必要があります。
 => String
 ```
 
-2. created_atとupdated_atは、どのク��スのインスタンスでしょうか?
+2. created_atとupdated_atは、どのクラスのインスタンスでしょうか?
 ```
 >> user.created_at.class
 => ActiveSupport::TimeWithZone
@@ -981,6 +981,78 @@ OK
 
 2. テストスイートの実行結果を確認しながら、before_saveコールバックをemail.downcase!に書き換えてみましょう。
 ヒント: メソッドの末尾に!を付け足すことにより、email属性を直接変更できるようになります (リスト 6.34)。
+!を付け足すとテストスイートが通らなくなる
 
 
-## 6.3 セキュアなパスワードを追加する
+## 6.3.2 ユーザーがセキュアなパスワードを持っている
+1. この時点では、userオブジェクトに有効な名前とメールアドレスを与えても、valid?で失敗してしまうことを確認してみてください。
+```
+>> user = User.new(name: "ryamakuchi", email: "ryamakuchi@example.com")
+=> #<User id: nil, name: "ryamakuchi", email: "ryamakuchi@example.com", created_at: nil, updated_at: nil, password_digest: nil>
+>> user.save
+   (0.1ms)  SAVEPOINT active_record_1
+  User Exists (0.2ms)  SELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?  [["email", "ryamakuchi@example.com"], ["LIMIT", 1]]
+   (0.1ms)  ROLLBACK TO SAVEPOINT active_record_1
+=> false
+```
+
+2. なぜ失敗してしまうのでしょうか? エラーメッセージを確認してみてください。
+```
+>> user.errors.messages
+=> {:password=>["can't be blank"]}
+```
+パスワードが空になっているため
+
+
+## 6.3.3 パスワードの最小文字数
+1. 有効な名前とメールアドレスでも、パスワードが短すぎるとuserオブジェクトが有効にならないことを確認してみましょう。
+```
+>> user = User.new(name: "ryamakuchi", email: "ryamakuchi@example.com", password: "aaaa")
+=> #<User id: nil, name: "ryamakuchi", email: "ryamakuchi@example.com", created_at: nil, updated_at: nil, password_digest: "$2a$10$FHHi0ZrTMWSukrn2eBA./eJFxodAmya40B.1b1yIqUx...">
+>> user.save
+   (0.1ms)  begin transaction
+  User Exists (0.2ms)  SELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?  [["email", "ryamakuchi@example.com"], ["LIMIT", 1]]
+   (0.1ms)  rollback transaction
+=> false
+```
+
+2. 上で失敗した時、どんなエラーメッセージになるでしょうか? 確認してみましょう。
+```
+>> user.errors.messages
+=> {:password=>["is too short (minimum is 6 characters)"]}
+```
+
+
+## 6.3.4 ユーザーの作成と認証
+1. コンソールを一度再起動して (userオブジェクトを消去して)、
+このセクションで作ったuserオブジェクトを検索してみてください。
+```
+>> user = User.find_by(name: "rio")                                                                                      
+  User Load (0.3ms)  SELECT  "users".* FROM "users" WHERE "users"."name" = ? LIMIT ?  [["name", "rio"], ["LIMIT", 1]]
+=> #<User id: 2, name: "rio", email: "ryamakuchi@example.com", created_at: "2018-10-14 16:07:26", updated_at: "2018-10-14 16:18:17", password_digest: "$2a$10$.hpqA5S3IxRnyflyG5GlPeV/fqgY31lUVN/2H/1LkDg...">
+```
+
+2. オブジェクトが検索できたら、名前を新しい文字列に置き換え、saveメソッドで更新してみてください。
+うまくいきませんね...、なぜうまくいかなかったのでしょうか?
+```
+?> user.name = "ryamakuchi"
+=> "ryamakuchi"
+>> user.save
+   (0.1ms)  begin transaction
+  User Exists (0.2ms)  SELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) AND ("users"."id" != ?) LIMIT ?  [["email", "ryamakuchi@example.com"], ["id", 2], ["LIMIT", 1]]
+   (0.1ms)  rollback transaction
+=> false
+>> user.errors.messages
+=> {:password=>["can't be blank", "is too short (minimum is 6 characters)"]}
+saveする際にパスワードも同時にチェックしているから?
+```
+
+3. 今度は6.1.5で紹介したテクニックを使って、userの名前を更新してみてください。
+```
+>> user.update_attribute(:name, "rry")
+   (0.1ms)  begin transaction
+  SQL (2.5ms)  UPDATE "users" SET "name" = ?, "updated_at" = ? WHERE "users"."id" = ?  [["name", "rry"], ["updated_at", "2018-10-14 16:30:53.313041"], ["id", 2]]
+   (5.7ms)  commit transaction
+=> true
+```
+
