@@ -77,7 +77,7 @@ Ruby on Rails チュートリアル
 
 ## 2.3.1 マイクロポストを探検する
 
-1. CSSを知っている読者へ: 新しいマイクロポストを作成し、ブラウザのHTMLインスペクター機能を使って「Micropost was successfully created.」の箇所を調べてみてください。ブラウザをリロードすると、その箇所はどうなるでしょうか?
+1. CSSを知っている読者へ: 新しいマイクロポストを作成し、ブラウザのHTMLインスペクター機能���使って「Micropost was successfully created.」の箇所を調べてみてください。ブラウザをリロードすると、その箇所はどうなるでしょうか?
 * `<p id="notice">Micropost was successfully created.</p>`となっている。多分変数。リロードすると消える。
 
 2. マイクロポストの作成画面で、ContentもUserも空にして作成しようとするどうなるでしょうか?
@@ -154,7 +154,7 @@ end
 ![OK](./images/18913B9EDB55A9966BF2729B5143033B.png)
 
 
-## 3.1 セットアップ
+## 3.1 セット�����ップ
 
 1. BitbucketがMarkdown記法のREADME (リスト 3.3) をHTMLとして正しく描画しているか、確認してみてください。
 * Githubで確認した
@@ -214,7 +214,7 @@ end
 2. 先ほど作った変数と式展開を使って、「東京都 新宿区」のような住所の文字列を作ってみましょう。出力にはputsを使ってください。
 ```
 ?> "#{prefecture} #{city}"                                                                                                     
-=> "東京都 江東区"
+=> "東京都 ���東区"
 ```
 
 3. 上記の文字列の間にある半角スペースをタブに置き換えてみてください。(ヒント: 改行文字と同じで、タブも特殊文字です)
@@ -283,7 +283,7 @@ It's not a palindrome.
 ```
 
 3. palindrome_tester("racecar")に対してnil?メソッドを呼び出し、戻り値がnilであるかどうかを確認してみてください (つまりnil?を呼び出した結果がtrueであることを確認してください)。
-このメソッドチェーンは、nil?メソッドがリスト 4.10の戻り値を受け取り、その結果を返しているという意味になります。
+このメソッドチェーンは、nil?メソッドがリスト 4.10の戻り値を受け取り、その結���を返しているという意味になります。
 ```
 ?> palindrome_tester("racecar").nil?
 It's a palindrome!
@@ -304,7 +304,7 @@ It's a palindrome!
 => "A man a plan a canal Panama"
 ```
 
-3. 変数sを半角スペースで分割した後、もう一度連結し��文字��にして��ださい
+3. 変数sを半角スペースで分割した後、もう一度��結し��文字��にして��ださい
 (ヒント: メソッドチェーンを使うと１行でもできます)。
 リスト 4.10で使った回文をチェックするメソッドを使って、
 (現状ではまだ) 変数sが回文ではないことを確認してください。
@@ -380,7 +380,7 @@ end
 ```
 
 ## 4.3.3 ハッシュとシンボル
-1. キーが’one’、’two’、’three’となっていて、それぞれ��値が’uno’、’dos��、’tres’となっているハッシュを作ってみてください。
+1. キーが’one’、’two’、’three’となっていて、��れぞれ��値が’uno’、’dos��、’tres’となっているハッシュを作ってみてください。
 その後、ハッシュの各要素をみて、それぞれのキーと値を"’#{key}’のスペイン語は’#{value}’"といった形で出力してみてください。
 ```
 >> num = {}
@@ -533,7 +533,7 @@ User > ApplicationRecord(abstract) > ActiveRecord::Base > Object > BasicObject
 
 
 ## 4.4.5 ユーザークラス
-1. Userクラスで定義されているname属性を修正して、first_name属性とlast_name属性に分割してみましょう。
+1. Userクラスで��義されているname属性を修正して、first_name属性とlast_name属性に分割してみましょう。
 また、それらの属性を使って "Michael Hartl" といった文字列を返すfull_nameメソッドを定義してみてください。
 最後に、formatted_emailメソッドのnameの部分を、full_nameに置き換えてみましょう (元々の結果と同じになっていれば成功です)
 ```
@@ -558,7 +558,7 @@ User > ApplicationRecord(abstract) > ActiveRecord::Base > Object > BasicObject
 => "Michael, Hartl <mhartl@example.com>"
 ```
 
-3. full_name.splitとalphabetical_name.split(’, ’).reverseの結果を比較し、同じ結果になるかどうか確認してみましょう。
+3. full_name.splitとalphabetical_name.split(’, ’).reverseの結果を比較し、同じ結果になる��どうか確認してみましょう。
 ```
 >> user.full_name.split
 => ["MichaelHartl"]
@@ -572,7 +572,7 @@ User > ApplicationRecord(abstract) > ActiveRecord::Base > Object > BasicObject
 
 
 ## 5.1.1 ナビゲーション
-1. Webページと言ったらネコ画像、というぐらいにはWebにはネコ画像が溢れて���ますよね。
+1. Webページと言ったらネコ画像、というぐらいにはWebにはネコ画像が溢れ������ますよね。
 リスト 5.4���コマンドを使って、図 5.3のネコ画像をダウンロードしてきましょう8。
 `にゃーん`
 
@@ -596,7 +596,7 @@ User > ApplicationRecord(abstract) > ActiveRecord::Base > Object > BasicObject
 
 
 ## 5.1.3 パーシャル (partial)
-1. Railsがデフォルトで生成するheadタグの部分を、リスト 5.18のようにrenderに置き換えてみてください。
+1. Railsがデフォルト��生成するheadタグの部分を、リスト 5.18のようにrenderに置き換えてみてください。
 ヒント: 単純に削除してしまうと後でパーシャルを１から書き直す必要が出てくるので、削除する前にどこかに退避しておきましょう。
 
 2. リスト 5.18のようなパーシャルはまだ作っていないので、現時点ではテストは redになっているはずです。
@@ -618,7 +618,7 @@ ok
 有名なFar Sideの漫画に倣って、Helpページの名前付きルートをhelfに変更してみてください (リスト 5.29)。
 ok
 
-2. 先ほどの変更により、テストが redになっていることを確��してください��
+2. 先ほどの変更により、テストが redに��っているこ��を確��してください��
 リスト 5.28を���考にルーティングを更新して、テストを greenにして見てください。
 ok
 
@@ -645,7 +645,7 @@ test環境でも使えるようにすると便利です。
 ただし、これは完璧なテストではありません。
 例えばベースタイトルに「Ruby on Rails Tutoial」といった誤字があったとしても、
 このテストでは発見することができないでしょう。
-この問題を解決するためには、full_titleヘルパーに対するテストを書く必要があります。
+この問題を解決するためには、full_title��ルパーに対するテストを書く必要があります。
 そこで、Applicationヘルパーをテストするファイルを作成し、
 リスト 5.37のFILL_INの部分を適切なコードに置き換えてみてください。
 ヒント: リスト 5.37ではassert_equal <期待される値>, <実際の値>といった形で使っていましたが、
@@ -762,7 +762,7 @@ end
 
 (コラム 3.1ではマイグレーションに関する他のテクニックもまとめているので、参考にしてみてください)。
 上のコマンドでは、データベースからusersテーブルを削除するためにdrop_tableコマンドを内部で呼び出しています。
-これがうまくいくのは、drop_tableとcreate_tableがそれぞれ対応していることをchangeメソッドが知っているからです。
+これが���まくいくのは、drop_tableとcreate_tableがそれぞれ対応していることをchangeメソッドが知っているからです。
 この対応関係を知っているため、ロールバック用の逆方向のマイグレーションを簡単に実現することができるのです。
 なお、あるカラムを削除するような不可逆なマイグレーションの場合は、changeメソッドの代わりに、
 upとdownのメソッドを別々に定義する必要があります。
@@ -980,7 +980,7 @@ before_saveの行をコメントアウトして redになることを、
 OK
 
 2. テストスイートの実行結果を確認しながら、before_saveコールバックをemail.downcase!に書き換えてみましょう。
-ヒント: メソッドの末尾に!を付け足すことにより、email属性を直接変更できるようになります (リスト 6.34)。
+ヒント: メソッドの末尾に!を付け��すことにより、email属性を直接変更できるようになり��す (リスト 6.34)。
 !を付け足すとテストスイートが通らなくなる
 
 
@@ -1032,7 +1032,7 @@ OK
 => #<User id: 2, name: "rio", email: "ryamakuchi@example.com", created_at: "2018-10-14 16:07:26", updated_at: "2018-10-14 16:18:17", password_digest: "$2a$10$.hpqA5S3IxRnyflyG5GlPeV/fqgY31lUVN/2H/1LkDg...">
 ```
 
-2. オブジェクトが検索できたら、名前を新しい文字列に置き換え、saveメソッドで更新してみてください。
+2. オブジェクトが検索でき��ら、名前を新しい文字列に置き換え、saveメソッドで更新してみてください。
 うまくいきませんね...、なぜうまくいかなかったのでしょうか?
 ```
 ?> user.name = "ryamakuchi"
@@ -1055,4 +1055,273 @@ saveする際にパスワードも同時にチェックしているから?
    (5.7ms)  commit transaction
 => true
 ```
+
+## 7.1.1 デバッグとRails環境
+1. ブラウザから /about にアクセスし、デバッグ情報が表示されていることを確認してください。
+このページを表示するとき、どのコントローラとアクションが使われていたでしょうか? paramsの内容から確認してみましょう。
+```
+--- !ruby/object:ActionController::Parameters
+parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  controller: static_pages
+  action: about
+permitted: false
+```
+  controller: static_pages
+  action: about
+が使われていた
+
+2. Railsコンソールを開き、データベースから最初のユーザー情報を取得し、変数userに格納してください。
+その後、puts user.attributes.to_yamlを実行すると何が表示されますか?
+ここで表示された結果と、yメソッドを使ったy user.attributesの実行結果を比較してみましょう。
+```
+>> user = User.find(1)
+  User Load (0.1ms)  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?  [["id", 1], ["LIMIT", 1]]
+=> #<User id: 1, name: "Michael Hartl", email: "mhartl@example.com", created_at: "2018-10-14 15:48:12", updated_at: "2018-10-14 15:48:12", password_digest: "$2a$10$5BAiEq3Ty7In3ComgBoVAuGKRAF7pHmYz4qZzdKMnqw...">
+
+
+>> puts user.attributes.to_yaml
+---
+id: 1
+name: Michael Hartl
+email: mhartl@example.com
+created_at: !ruby/object:ActiveSupport::TimeWithZone
+  utc: &1 2018-10-14 15:48:12.951010000 Z
+  zone: &2 !ruby/object:ActiveSupport::TimeZone
+    name: Etc/UTC
+  time: *1
+updated_at: !ruby/object:ActiveSupport::TimeWithZone
+  utc: &3 2018-10-14 15:48:12.951010000 Z
+  zone: *2
+  time: *3
+password_digest: "$2a$10$5BAiEq3Ty7In3ComgBoVAuGKRAF7pHmYz4qZzdKMnqwaDKVnJKknW"
+=> nil
+
+>> y user.attributes
+---
+id: 1
+name: Michael Hartl
+email: mhartl@example.com
+created_at: !ruby/object:ActiveSupport::TimeWithZone
+  utc: &1 2018-10-14 15:48:12.951010000 Z
+  zone: &2 !ruby/object:ActiveSupport::TimeZone
+    name: Etc/UTC
+  time: *1
+updated_at: !ruby/object:ActiveSupport::TimeWithZone
+  utc: &3 2018-10-14 15:48:12.951010000 Z
+  zone: *2
+  time: *3
+password_digest: "$2a$10$5BAiEq3Ty7In3ComgBoVAuGKRAF7pHmYz4qZzdKMnqwaDKVnJKknW"
+=> nil
+```
+ん? 違わない!
+
+
+## 7.1.2 Usersリソース
+1. 埋め込みRubyを使って、マジックカラム (created_atとupdated_at) の値をshowページに表示してみましょう (リスト 7.4)。
+```
+Michael Hartl, mhartl@example.com, 2018-10-14 15:48:12 UTC, 2018-10-14 15:48:12 UTC
+```
+
+2. 埋め込みRubyを使って、Time.nowの結果をshowページに表示してみましょう。ページを更新すると、その結果はどう変わっていますか? 確認してみてください。
+```
+Michael Hartl, mhartl@example.com, 2018-10-14 15:48:12 UTC, 2018-10-14 15:48:12 UTC, 2018-10-17 15:52:25 +0000
+```
+刻一刻と変わる時間
+
+
+## 7.1.3 debuggerメソッド
+1. showアクションの中にdebuggerを差し込み (リスト 7.6)、ブラウザから /users/1 にアクセスしてみましょう。
+その後コンソールに移り、putsメソッ���を使ってparamsハッシュの中身をYAML形式で表示してみましょう。
+ヒント: 7.1.1.1の演習を参考にしてください。その演習ではdebugメソッドで表示したデバッグ情報を、
+どのようにしてYAML形式で表示していたでしょうか?
+```
+(byebug) puts @user.attributes.to_yaml
+---
+id: 1
+name: Michael Hartl
+email: mhartl@example.com
+created_at: !ruby/object:ActiveSupport::TimeWithZone
+  utc: &1 2018-10-14 15:48:12.951010000 Z
+  zone: &2 !ruby/object:ActiveSupport::TimeZone
+    name: Etc/UTC
+  time: *1
+updated_at: !ruby/object:ActiveSupport::TimeWithZone
+  utc: &3 2018-10-14 15:48:12.951010000 Z
+  zone: *2
+  time: *3
+password_digest: "$2a$10$5BAiEq3Ty7In3ComgBoVAuGKRAF7pHmYz4qZzdKMnqwaDKVnJKknW"
+nil
+```
+
+2. newアクションの中にdebuggerを差し込み、/users/new にアクセスしてみましょう。
+@userの内容はどのようになっているでしょうか? 確認してみてください。
+```
+(byebug) @user
+nil
+```
+
+
+## 7.1.4 Gravatar画像とサイドバー
+1. (任意) Gravatar上にアカウントを作成し、あなたのメールアドレスと適当な画像を紐付けてみてください。
+メールアドレスをMD5ハッシュ化して、紐付けた画像がちゃんと表示されるかどうか試してみましょう。
+OK
+
+2. 7.1.4で定義したgravatar_forヘルパーをリスト 7.12のように変更して、
+sizeをオプション引数として受け取れるようにしてみましょう。
+うまく変更できると、gravatar_for user, size: 50といった呼び出し方ができるようになります。
+重要: この改善したヘルパーは10.3.1で実際に使います。忘れずに実装しておきましょう。
+OK
+
+2. オプション引数は今でもRubyコミュニティで一般的に使われていますが、
+Ruby 2.0から導入された新機能「キーワード引数 (Keyword Arguments)」でも���現することができます。
+先ほど変更したリスト 7.12を、リスト 7.13のように置き換えてもうまく動くことを確認してみましょう。
+この２つの実装方法はどういった違いがあるのでしょうか? 考えてみてください。
+リスト 7.13 のほうが簡潔に書ける
+
+
+## 7.2.1 form_forを使用する
+1. 試しに、リスト 7.15にある:nameを:nomeに置き換えてみましょう。
+どんなエラーメッセージが表示されるようになりますか?
+NoMethodError in Users#new
+![エラーメッセージ](../images/2018-10-21 23.01.48.png)
+
+2. 試しに、ブロックの変数fをすべてfoobarに置き換えてみて、結果が変わらないことを確認してみてください。
+確かに結果は変わりませんが、変数名をfoobarとするのはあまり良い変更ではなさそうですね。
+その理由について考えてみてください。
+* foober と毎回書くのが手間になるから
+* fooberだとどんな名前か分かりづらいから
+
+
+## 7.2.2 フォームHTML
+1. Learn Enough HTML to Be DangerousではHTMLをすべて手動で書き起こしていますが、
+なぜformタグを使わなかったのでしょうか? 理由を考えてみてください。
+```
+form を使う必要がなかったから
+```
+
+## 7.3.2 Strong Parameters
+1. /signup?admin=1 にアクセスし、paramsの中���admin属性が含まれていることをデバッグ情報から確認してみましょう。
+```
+--- !ruby/object:ActionController::Parameters
+parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  admin: '1'
+  controller: users
+  action: new
+permitted: false
+```
+
+## 7.3.3 エラーメッセージ
+1. 最小文字数を5に変更すると、エラーメッセージも自動的に更新されることを確かめてみましょう。
+```
+Password is too short (minimum is 5 characters)
+```
+OK
+
+2. 未送信のユーザー登録フォーム (図 7.12) のURLと、
+送信済みのユーザー登録フォーム (図 7.18) のURLを比べてみましょう。
+なぜURLは違っているのでしょうか? 考えてみてください。
+
+> リスト 5.43で追加した名前付きルートと、デフォルトのRESTfulなルーティング (リスト 7.3) を設定したことによって生じた差異です。
+
+
+## 7.3.4 失敗時のテスト
+1. リスト 7.20で実装したエラーメッセージに対するテストを書いてみてください。
+どのくらい細かくテストするかはお任せします。リスト 7.25にテンプレートを用意しておいたので、参考にしてください。
+
+参考にしました
+
+2. 未送信のユーザー登録フォームと送信直後のURLは、それぞれ /signup と /users になり、URLが異なっています。
+これは、リスト 5.43で追加した名前付きルートと、
+デフォルトのRESTfulなルーティング (リスト 7.3) を設定したことによって生じた差異です。
+リスト 7.26とリスト 7.27の内容を追加し、この問題を解決してみてください。
+うまくいけば、いずれのURLも /signup となるはずです。
+あれ、でもテストは greenのままになっていますね...、なぜでしょうか? (考えてみてください）
+
+signup_pathでPOSTされると、users#createに飛んでいくよう設定されているため。
+
+3. リスト 7.25のpost部分を変更して、先ほどの演習課題で作った新しいURL (/signup) に合わせてみましょう。
+また、テストが greenのままになっている点も確認してください。
+
+```
+post signup_path に変更
+```
+GREENでした
+
+4. リスト 7.27のフォームを以前の状態 (リスト 7.20) に戻してみて、
+テストがやはり greenになっていることを確認してください。これは問題です! 
+なぜなら、現在postが送信されているURLは正しくないのですから。
+assert_selectを使ったテストをリスト 7.25に追加し、このバグを検知できるようにしてみましょう
+(テストを追加して redになれば成功です)。その後、変更後のフォーム (リスト 7.27) に戻してみて、
+テストが green になることを確認してみましょう。ヒント: フォームから送信してテストするのではなく、
+’form[action="/signup"]’という部分が存在するかどうかに着目してテストしてみましょう。
+```
+  assert_select 'form[action="/signup"]'
+```
+これを追加して、テストがREDになったことを確認。
+また、リスト 7.27をもとに戻すとテストがGREENになった。
+
+
+## 7.4.1 登録フォームの完成
+1. 有効な情報を送信し、ユーザーが実際に作成されたことを、Railsコンソールを使って確認してみましょう。
+```
+>> user = User.last
+  User Load (0.1ms)  SELECT  "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT ?  [["LIMIT", 1]]
+=> #<User id: 3, name: "ryamakuchi", email: "rryamakuchi@gmail.com", created_at: "2018-10-21 16:28:15", updated_at: "2018-10-21 16:28:15", password_digest: "$2a$10$eoNI8BH5vNaFNqLTd/t8x.grbsH8G3V2shW7b63/nvp...">
+>> 
+```
+
+2. リスト 7.28を更新し、redirect_to user_url(@user)とredirect_to @userが同じ結果になることを確認してみましょう。
+OK
+
+
+## 7.4.2 flash
+1. コンソールに移り、文字列内の式展開 (4.2.2) でシンボルを呼び出してみましょう。
+例えば"#{:success}"といったコードを実行すると、どんな値が返ってきますか?確認してみてください。
+```
+?> "#{:success}"
+=> "success"
+```
+
+2. 先ほどの演習で試した結果を参考に、リスト 7.30のflashはどのような結果になるか考えてみてください。
+```
+success
+It worked!
+danger
+It failed.
+=> {:success=>"It worked!", :danger=>"It failed."}
+```
+
+
+## 7.4.3 実際のユーザー登録
+1. Railsコンソールを使って、新しいユーザーが本当に作成されたのかもう一度チェックしてみましょう。
+結果は、リスト 7.32のようになるはずです。
+OK なった
+
+2. 自分のメールアドレスでユーザー登録を試してみましょう。
+既にGravatarに登録している場合、適切な画像が表示されているか確認してみてください。
+OK
+
+
+## 7.4.4 成功時のテスト
+1. 7.4.2で実装したflashに対するテストを書いてみてください。
+どのくらい細かくテストするかはお任せします。
+リスト 7.34に最小限のテンプレートを用意しておいたので、参考にしてください
+(FILL_INの部分を適切なコードに置き換えると完成します)。ちなみに、テキストに対するテストは壊れやすいです。
+文量の少ないflashのキーであっても、それは同じです。
+筆者の場合、flashが空でないかをテストするだけの場合が多いです。
+OK
+
+2. 本文中でも指摘しましたが、flash用のHTML (リスト 7.31) は読みにくいです。
+より読みやすくしたリスト 7.35のコードに変更してみましょう。
+変更が終わったらテストスイートを実行し、正常に動作することを確認してください。
+なお、このコードでは、Railsのcontent_tagというヘルパーを使っています。
+OK
+
+3. リスト 7.28のリダイレクトの行をコメントアウトすると、テストが失敗することを確認してみましょう。
+コメントアウトするとREDになった
+
+4. リスト 7.28で、@user.saveの部分をfalseに置き換えたとしましょう
+ (バグを埋め込んでしまったと仮定してください)。
+このとき、assert_differenceのテストではどのようにしてこのバグを検知するでしょうか? 
+テストコードを追って考えてみてください。
 
