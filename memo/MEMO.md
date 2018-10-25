@@ -1432,10 +1432,93 @@ POST	/login	login_path	create	新しいセッションの作成 (ログイン)
 
 
 ## 8.1.5 フラッシュのテスト
-![エラーメッセージ](./images/2018-10-2650824.png)
+![フラッシュテスト](./images/2018-10-2650824.png)
 
 キタ
 しかもちゃんとリロードしたら消えてくれたすばらしい
 
 
-## 8.2 ログイン
+## 8.2.1 log_inメソッド
+1. 有効なユーザーで実際にログインし、ブラウザからcookiesの情報を調べてみてください。
+このとき、sessionの値はどうなっているでしょうか? 
+ヒント: ブラウザでcookiesを調べる方法が分からない? 
+今こそググってみるときです! (コラム 1.1)
+![これで合ってる?](./images/2018-10-2653901.png)
+
+2. 先ほどの演習課題と同様に、Expiresの値について調べてみてください。
+![これで合ってる?](./images/2018-10-2654211.png)
+Expires	At end of session だそうです。
+
+
+## 8.2.2 現在のユーザー
+1. Railsコンソールを使って、User.find_by(id: ...)で対応するユーザーが検索に引っかからなかったとき、
+nilを返すことを確認してみましょう。
+```
+?> User.find_by(id: 123456)
+  User Load (0.2ms)  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?  [["id", 123456], ["LIMIT", 1]]
+=> nil
+```
+
+2. 先ほどと同様に、今度は:user_idキーを持つsessionハッシュを作成してみましょう。
+リスト 8.17に記したステップに従って、||=演算子がうまく動くことも確認してみましょう。
+```
+?> session = {}
+=> {}
+>> session[:user_id] = nil
+=> nil
+>> @current_user ||= User.find_by(id: session[:user_id])
+  User Load (0.2ms)  SELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?  [["LIMIT", 1]]
+=> nil
+>> session[:user_id]= User.first.id
+  User Load (0.1ms)  SELECT  "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT ?  [["LIMIT", 1]]
+=> 1
+>> @current_user ||= User.find_by(id: session[:user_id])
+  User Load (0.1ms)  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?  [["id", 1], ["LIMIT", 1]]
+=> #<User id: 1, name: "Rails Tutorial", email: "example@railstutorial.org", created_at: "2018-10-21 16:40:23", updated_at: "2018-10-21 16:40:23", password_digest: "$2a$10$RVIHSBE4hSQNwZ8askIY7.8dDvqPGS.kuYyVZSJpup9...">
+>> @current_user ||= User.find_by(id: session[:user_id])
+=> #<User id: 1, name: "Rails Tutorial", email: "example@railstutorial.org", created_at: "2018-10-21 16:40:23", updated_at: "2018-10-21 16:40:23", password_digest: "$2a$10$RVIHSBE4hSQNwZ8askIY7.8dDvqPGS.kuYyVZSJpup9...">
+```
+
+
+## 8.2.3 レイアウトリンクを変更する
+1. ブラウザのcookieインスペクタ機能を使って (8.2.1.1)、セッション用のcookieを削除してみてください。
+ヘッダー部分にあるリンクは非ログイン状態のものになっているでしょうか? 確認してみましょう。
+
+変わりました!
+
+2. もう一度ログインしてみて、ヘッダーのレイアウトが変わったことを確認してみましょう。
+その後、ブラウザを再起動させ、再び非ログイン状態に戻ったことも確認してみてください。
+注意: もしブラウザの [閉じたときの状態に戻す] 機能をオンにしていると、
+セッション情報も復元される可能性があります。
+もしその機能をオンにしている場合、忘れずにオフにしておきましょう (コラム 1.1)。
+
+OK
+
+
+## 8.2.4 レイアウトの変更をテストする
+1. 試しにSessionヘルパーのlogged_in?メソッドから!を削除してみて、
+リスト 8.23が redになることを確認してみましょう。
+REDなた
+
+2. 先ほど削除した部分 (!) を元に戻して、テストが greenに戻ることを確認してみましょう。
+GREENなた
+
+
+## 8.2.5 ユーザー登録時にログイン
+1. リスト 8.25のlog_inの行をコメントアウトすると、
+テストスイートは red になるでしょうか? それとも green になるでしょうか? 確認してみましょう。
+redになった
+
+2. 現在使っているテキストエディタの機能を使って、リスト 8.25をまとめてコメントアウトできないか調べてみましょう。
+また、コメントアウトの前後でテストスイートを実行し、コメントアウトすると red に、
+コメントアウトを元に戻すと green になることを確認してみましょう。
+ヒント: コメントアウト後にファイルを保存することを忘れないようにしましょう。
+また、テキストエディタのコメントアウト機能については Test Editor Tutorial の 
+Commenting Out (英語) などを参照してみてください。
+
+cmmand + / でコメントアウトできる
+期待通りになった
+
+
+## 8.3 ログアウト
+
