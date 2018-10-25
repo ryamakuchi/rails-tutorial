@@ -174,7 +174,7 @@ end
 
 ## 3.4.2 タイトルを追加する (Green)
 
-1. StaticPagesコントローラのテスト (リスト 3.24) には、いくつか繰り返しがあったことにお気づきでしょうか? 特に「Ruby on Rails Tutorial Sample App」という基本タイトルは、各テストで毎回同じ内容を書いてしまっています。そこで、setupという特別なメソッド (各テストが実行される直前で実行されるメソッド) を使って、この問題を解決したいと思います。まずは、リスト 3.30のテストが green になることを確認してみてください (リスト 3.30では、2.2.2で少し触れたインスタンス変数や文字列の式展開というテクニックを使っています。それぞれ4.4.5と4.2.2で詳しく解説するので、今はわからなくても問題ありません)。
+1. StaticPagesコントローラのテスト (リスト 3.24) には、いくつか繰り返しがあったことにお気づきでしょうか? 特に「Ruby on Rails Tutorial Sample App」という基本タイトルは、各テストで毎回同じ内容を書いてしまっています。そこで、setupという特別なメソッド (各テストが実行される直前で実行されるメソッド) を使って、この問題を解決したいと思います。まずは、リスト 3.30のテストが green になることを確認してみてください (リスト 3.30では、2.2.2で少し触れたインスタンス変数や文字列の式展開というテクニックを使っています。それぞれ4.4.5と4.2.2で詳しく解説する��で、今はわからなくても問題ありません)。
 * GREENになった
 * 3 runs, 6 assertions, 0 failures, 0 errors, 0 skips
 
@@ -558,7 +558,7 @@ User > ApplicationRecord(abstract) > ActiveRecord::Base > Object > BasicObject
 => "Michael, Hartl <mhartl@example.com>"
 ```
 
-3. full_name.splitとalphabetical_name.split(’, ’).reverseの結果を比較し、同じ結果になる��どうか確認してみましょう。
+3. full_name.splitとalphabetical_name.split(’, ’).reverseの結��を比較し、同じ結果になる��どうか確認してみましょう。
 ```
 >> user.full_name.split
 => ["MichaelHartl"]
@@ -640,7 +640,7 @@ ok
 ok, エラーなった
 
 2. リスト 5.35で示すように、Applicationヘルパーで使っているfull_titleヘルパーを、
-test環境でも使えるようにすると便利です。
+test環境でも使える��うにすると便利です。
 こうしておくと、リスト 5.36のようなコードを使って、正しいタイトルをテストすることができます。
 ただし、これは完璧なテストではありません。
 例えばベースタイトルに「Ruby on Rails Tutoial」といった誤字があったとしても、
@@ -761,7 +761,7 @@ end
 こうなって消えていた
 
 (コラム 3.1ではマイグレーションに関する他のテクニックもまとめているので、参考にしてみてください)。
-上のコマンドでは、データベースからusersテーブルを削除するためにdrop_tableコマンドを内部で呼び出しています。
+上のコマンドでは、データベースからusersテーブルを削除するためにdrop_tableコマンドを内部で呼び出していま��。
 これが���まくいくのは、drop_tableとcreate_tableがそれぞれ対応していることをchangeメソッドが知っているからです。
 この対応関係を知っているため、ロールバック用の逆方向のマイグレーションを簡単に実現することができるのです。
 なお、あるカラムを削除するような不可逆なマイグレーションの場合は、changeメソッドの代わりに、
@@ -961,7 +961,7 @@ OK
 2. 先ほど触れたように、リスト 6.21のメールアドレスチェックする正規表現は、
 foo@bar..comのようにドットが連続した無効なメールアドレスを許容してしまいます。
 まずは、このメールアドレスをリスト 6.19の無効なメールアドレスリストに追加し、
-これによってテストが失敗することを確認してください。
+これによってテストが失敗することを確認し���ください。
 次に、リスト 6.23で示した、少し複雑な正規表現を使ってこのテストがパスすることを確認してください。
 OK
 
@@ -1072,7 +1072,7 @@ permitted: false
 
 2. Railsコンソールを開き、データベースから最初のユーザー情報を取得し、変数userに格納してください。
 その後、puts user.attributes.to_yamlを実行すると何が表示されますか?
-ここで表示された結果と、yメソッドを使ったy user.attributesの実行結果を比較してみましょう。
+ここで表示された結果と、yメソッドを使ったy user.attributesの実行結果を比���してみましょう。
 ```
 >> user = User.find(1)
   User Load (0.1ms)  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?  [["id", 1], ["LIMIT", 1]]
@@ -1200,7 +1200,7 @@ form を使う必要がなかったから
 ```
 
 ## 7.3.2 Strong Parameters
-1. /signup?admin=1 にアクセスし、paramsの中���admin属性が含まれていることをデバッグ情報から確認してみましょう。
+1. /signup?admin=1 にアクセスし、params���中���admin属性が含まれていることをデバッグ情報から確認してみましょう。
 ```
 --- !ruby/object:ActionController::Parameters
 parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
@@ -1311,7 +1311,7 @@ OK
 筆者の場合、flashが空でないかをテストするだけの場合が多いです。
 OK
 
-2. 本文中でも指摘しましたが、flash用のHTML (リスト 7.31) は読みにくいです。
+2. 本文中でも指摘しました��、flash用のHTML (リスト 7.31) は読みにくいです。
 より読みやすくしたリスト 7.35のコードに変更してみましょう。
 変更が終わったらテストスイートを実行し、正常に動作することを確認してください。
 なお、このコードでは、Railsのcontent_tagというヘルパーを使っています。
@@ -1337,3 +1337,105 @@ assert_difference 'User.count', 1 do
 ![エラーメッセージ](./images/2018-10-2222634.png)
 
 できた! ヤッタ!
+
+
+## 8.1.1 Sessionsコントローラ
+1. GET login_pathとPOST login_pathとの違いを説明できますか? 少し考えてみましょう。
+
+/loginにGET送信されたか(URL直接アクセスされて来たか)、
+/loginにPOST送信されたか(何らかの情報を持ってそのURLにアクセスされたきたのか)
+
+2. ターミナルのパイプ機能を使ってrails routesの実行結果とgrepコマンドを繋ぐことで、
+Usersリソースに関するルーティングだけを表示させることができます。
+��様にして、Sessionsリソースに関する結果だけを表示させてみましょう
+現在、いくつのSessionsリソースがあるでしょうか? 
+ヒント: パイプやgrepの使い方が分からない場合は Learn Enough Command Line to Be Dangerousの 
+Section on Grep (英語) を参考にしてみてください。
+```
+ec2-user:~/environment/sample_app (master) $ rails routes | grep users
+   users_new GET    /users/new(.:format)      users#new
+      signup GET    /signup(.:format)         users#new
+       users GET    /users(.:format)          users#index
+             POST   /users(.:format)          users#create
+    new_user GET    /users/new(.:format)      users#new
+   edit_user GET    /users/:id/edit(.:format) users#edit
+        user GET    /users/:id(.:format)      users#show
+             PATCH  /users/:id(.:format)      users#update
+             PUT    /users/:id(.:format)      users#update
+             DELETE /users/:id(.:format)      users#destroy
+```
+
+```
+ec2-user:~/environment/sample_app (master) $ rails routes | grep sessions
+sessions_new GET    /sessions/new(.:format)   sessions#new
+       login GET    /login(.:format)          sessions#new
+             POST   /login(.:format)          sessions#create
+      logout DELETE /logout(.:format)         sessions#destroy
+```
+4つのセッションリソースがある
+
+
+## 8.1.2 ログインフォーム
+1. リスト 8.4で定義したフォームで送信すると、Sessionsコントローラのcreateアクションに到達します。
+Railsはこれをどうやって実現しているでしょうか? 考えてみてください。
+ヒント:表 8.1とリスト 8.5の１行目に注目してください。
+```
+POST	/login	login_path	create	新しいセッションの作成 (ログイン)
+<form accept-charset="UTF-8" action="/login" method="post">
+```
+とあるので、/login に POST 送信されるとcreateアクションに飛ぶように、RESTな設計で実現されている。
+
+
+## 8.1.3 ユーザーの検索と認証
+1. Railsコンソールを使って、表 8.2のそれぞれの式が合っているか確かめてみましょう. 
+まずはuser = nilの場合を、
+次にuser = User.firstとした場合を確かめてみてください。
+ヒント: 必ず論理値オブジェクトとなるように、
+4.2.3で紹介した!!のテクニックを使ってみましょう。
+例: !!(user && user.authenticate(’foobar’))
+
+> まずはuser = nilの場合を
+```
+>> p params[:session][:email]
+"user@example.com"
+=> "user@example.com"
+>> user = User.find_by(email: params[:session][:email].downcase)
+  User Load (0.1ms)  SELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?  [["email", "user@example.com"], ["LIMIT", 1]]
+=> nil
+>> if user && user.authenticate(params[:session][:password])
+>> p "ユーザーログイン後にユーザー情報のページにリダイレクトする"
+>> else
+?> p "エラーメッセージを作成する"
+>> end
+"エラーメッセージを作成する"
+=> "エラーメッセージを作成
+```
+
+```
+?> !!(user && user.authenticate(params[:session][:password]))
+=> false
+```
+
+次にuser = User.firstとした場合で、
+パスワードが間違っている場合
+```
+?> !!(user && user.authenticate("1234"))                                                                              
+=> false
+```
+
+そして、成功した場合
+```
+?> !!(user && user.authenticate("123456"))
+=> true
+```
+※ うそ。ほんとはパスワード忘れちゃってうまくいかなかった。。ぷん。
+
+
+## 8.1.5 フラッシュのテスト
+![エラーメッセージ](./images/2018-10-2650824.png)
+
+キタ
+しかもちゃんとリロードしたら消えてくれたすばらしい
+
+
+## 8.2 ログイン
